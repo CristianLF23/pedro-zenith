@@ -239,3 +239,36 @@ html:not(.js) .eclipse-switch{display:none}
  .workshop-copy .button{font-size:13px}.process-story .text-link{font-size:12px!important}
 }
 @media(prefers-reduced-motion:reduce){.button:active{transform:none}}
+
+/* A single scroll composition: outline receives ink before the freehand work. */
+.work-contact{margin-top:auto;width:100%;font-size:14px}
+.ink-stage{position:relative;isolation:isolate;overflow:hidden;background:#111714;color:#e1e0d6;padding:65px 6% 75px;margin-bottom:48px;min-height:460px;border-block:1px solid #536459}
+.ink-stage .eyebrow{color:#bfcbbb;position:relative;z-index:1}
+.ink-stage>p:not(.eyebrow){color:#d3ddcd;position:relative;z-index:1;max-width:360px;padding-bottom:15px}
+.ink-title{position:relative;width:fit-content;line-height:1.06!important;font-size:clamp(78px,8.5vw,130px)!important;z-index:1}
+.ink-title-base{display:block;color:#e1e0d6}
+.ink-title-fill{position:absolute;inset:0;color:var(--accent);clip-path:inset(0 0 0 0);pointer-events:none}
+.ink-live .ink-title-base{color:#111714;-webkit-text-stroke:1px #b3c5b8}
+.ink-live .ink-title-fill{clip-path:inset(0 var(--ink-hidden,0%) 0 0)}
+.ink-emblem{position:absolute;right:-100px;top:-50px;bottom:-120px;width:440px;background:url('assets/ornamento.webp') 13% 44%/1700px no-repeat;filter:invert(1);mix-blend-mode:screen;opacity:.24;z-index:-1;pointer-events:none}
+.ink-live .ink-emblem{clip-path:inset(var(--ink-hidden,0%) 0 0 0)}
+.contact-direct{align-self:center;position:relative;z-index:1}
+.contact-direct>p{font:clamp(36px,4vw,56px)/1.12 Angel,serif;margin-bottom:32px}
+.contact-direct .text-link{display:flex;width:fit-content;margin-top:16px;justify-content:center}
+.contact-direct .contact-number{display:block;width:fit-content;margin-top:18px}
+.project{align-items:center;min-height:calc(100svh - var(--header))}
+.project-intro h1{font-size:clamp(78px,8.6vw,130px)}
+@media(min-width:651px) and (max-width:950px){.ink-stage{grid-template-columns:1.3fr 1fr;gap:18px;padding-inline:5%;min-height:390px}.ink-title{font-size:78px!important}.ink-stage>p:not(.eyebrow){font-size:13px}.work-contact{grid-column:2;grid-row:4;align-self:start;margin-top:0}}
+@media(max-width:650px){
+ .header-project{min-width:80px;justify-content:center;font-size:12px;padding-inline:15px}
+ .work-contact{margin-top:8px;min-height:60px;font-size:14px}
+ .ink-stage{min-height:440px;padding:43px 23px 42px;margin-bottom:32px}
+ .ink-title{font-size:75px!important;margin:25px 0!important}
+ .ink-stage>p:not(.eyebrow){font-size:14px;max-width:280px;padding:0}
+ .ink-emblem{right:-180px;width:390px;background-size:1400px;opacity:.2}
+ .contact-direct{width:100%}.contact-direct>p{font-size:43px;margin-bottom:26px}
+ .contact-direct .text-link{width:100%}.project-intro h1{font-size:86px}
+ .project{gap:45px;align-items:start;padding-block:48px 65px}
+}
+@media(max-width:360px){.ink-title{font-size:63px!important}.project-intro h1{font-size:75px}.contact-direct>p{font-size:39px}}
+@media(prefers-reduced-motion:reduce){.ink-title-base{color:#e1e0d6!important;-webkit-text-stroke:0!important}.ink-title-fill,.ink-emblem{clip-path:none!important}}
