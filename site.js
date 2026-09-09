@@ -42,6 +42,16 @@
   addEventListener('resize',updateCurrentSection);
   $('.skip').addEventListener('click',e=>{e.preventDefault();$('#conteudo').focus({preventScroll:true});$('#conteudo').scrollIntoView({behavior:'instant'})});
   $('.menu-toggle').addEventListener('click',()=>{const expanded=$('.menu-toggle').getAttribute('aria-expanded')==='true';$('#mobile-nav').hidden=expanded;$('.menu-toggle').setAttribute('aria-expanded',String(!expanded));$('.menu-toggle span').textContent=expanded?'+':'×'});
+  const eclipsePhoto=$('#eclipse-photo');let eclipseRequest=0;
+  $$('[data-eclipse]').forEach(button=>button.addEventListener('click',()=>{
+    const side=button.dataset.eclipse,request=++eclipseRequest;
+    if(!['frente','costas'].includes(side))return;
+    eclipsePhoto.src=`assets/eclipse-${side}.png`;
+    eclipsePhoto.alt=side==='frente'?'Pedro de frente com camiseta Eclipse, pequeno símbolo turquesa no peito e parede vermelha':'Pedro de costas com camiseta Eclipse, estampa ornamental turquesa e parede vermelha';
+    $('#eclipse-caption').textContent=side==='frente'?'Eclipse · Símbolo na frente':'Eclipse · Estampa nas costas';
+    $$('[data-eclipse]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+    eclipsePhoto.decode().then(()=>{if(request===eclipseRequest&&!reduced.matches)eclipsePhoto.animate([{opacity:.55},{opacity:1}],{duration:300,easing:'ease-out'})}).catch(()=>notice('Não foi possível carregar esta foto. Tente selecionar a vista novamente.'));
+  }));
   $('#mobile-nav').addEventListener('click',e=>{if(e.target.closest('a'))closeMenu()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
   $$('[data-region]').forEach(b=>b.addEventListener('click',()=>{const region=b.dataset.region;$('#region-choice').value=regionNames[region];updateMessage();setWork(regions[region][0])}));
   function nextWork(delta){const options=regions[works[currentWork].region],index=options.indexOf(currentWork);setWork(options[(index+delta+options.length)%options.length])}
