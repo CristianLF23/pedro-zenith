@@ -33,6 +33,10 @@ main{position:relative;isolation:isolate}.chapter{isolation:auto}.chapter>header
 @media(prefers-reduced-motion:reduce){.js .site-ink-reveal{clip-path:none!important;mask-image:none!important}.ink-ending{color:#eee!important;-webkit-text-stroke:0!important}.ink-ending:after{display:none}.carousel-track{scroll-behavior:auto}}
 .no-js .contact h2.ink-ending{color:#f0efe9;-webkit-text-stroke:0}.no-js .site-ink{top:75svh;bottom:500px;height:auto}.no-js .site-ink-reveal{clip-path:none;mask-image:none}
 
+/* A inscrição acompanha o percurso, mas nunca cruza controles ou CTAs. */
+.hero-copy,.hero-foot,.carousel-controls,.available-stage>.action,.freehand-process .action,.artist-copy .action,.workshop-copy .action,.contact-copy .action{isolation:isolate;z-index:4}
+.hero .action{background:#f0efe9}
+
 /* Freehand: enquadramento mobile e luz derivada dos orbes da arte. */
 .freehand .pirata-title{text-shadow:-3px 0 24px #42e6dc38,3px 0 28px #eb47dc38}
 .freehand-layout .carousel-track{border:1px solid #a9e9e533;box-shadow:-12px 0 34px #23cbb917,12px 0 34px #dc37cd1c}
