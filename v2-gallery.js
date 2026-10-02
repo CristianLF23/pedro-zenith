@@ -9,7 +9,7 @@
     var nearest = 0;
     var distance = Infinity;
     slides.forEach(function (slide, index) {
-      var offset = Math.abs(left - (slide.offsetLeft - track.offsetLeft));
+      var offset = Math.abs(left - (slide.offsetLeft - slides[0].offsetLeft));
       if (offset < distance) {
         distance = offset;
         nearest = index;
@@ -70,7 +70,7 @@
         button.appendChild(number);
 
         button.addEventListener('click', function () {
-          var left = slide.offsetLeft - track.offsetLeft;
+          var left = slide.offsetLeft - slides[0].offsetLeft;
           track.scrollTo({ left: left, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
           sync(index, true);
         });
