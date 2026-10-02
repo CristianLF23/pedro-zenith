@@ -72,3 +72,31 @@
   .orb-light { animation:none; opacity:.3; }
   .orb-spark { display:none; }
 }
+
+/* Contato persistente, separado da inscrição e da camada de ampliação. */
+html { scroll-padding-bottom:100px; }
+.whatsapp-persistent {
+  position:fixed; z-index:81;
+  right:calc(var(--pad) + 90px); top:calc((var(--head) - 44px) / 2); bottom:auto;
+  display:none; align-items:center; gap:8px;
+  min-height:44px; padding:10px 12px;
+  border:1px solid #102a24; border-radius:3px;
+  background:var(--acid); color:#10231e;
+  box-shadow:0 4px 20px #0005;
+  transition:transform 180ms ease-out,background-color 180ms ease-out;
+}
+.whatsapp-persistent svg { flex:none; width:19px; height:19px; }
+.whatsapp-persistent span { display:grid; gap:3px; }
+.whatsapp-persistent strong { font-size:12px; line-height:1.2; }
+.whatsapp-persistent small { display:none; }
+.whatsapp-persistent:hover { background:#d0fff2; transform:translateY(-2px); }
+.whatsapp-persistent:focus-visible { outline:3px solid #fff; outline-offset:3px; box-shadow:0 0 0 7px #10231e; }
+.header-cta { background:var(--acid); color:#10231e; border-color:#102a24; }
+footer { padding-bottom:calc(24px + env(safe-area-inset-bottom)); }
+@media(max-width:1000px) {
+  .whatsapp-persistent { display:flex; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .whatsapp-persistent { transition:none; }
+  .whatsapp-persistent:hover { transform:none; }
+}
