@@ -1,0 +1,74 @@
+/* Ajustes de mídia: controle explícito, fotos sem letterbox e glifo isolado. */
+.carousel .slide { isolation:isolate; padding-bottom:52px; }
+.carousel .slide figcaption { height:52px; padding:0 132px 0 16px; align-items:center; background:#0b0b0b; font-size:10px; line-height:1.4; }
+.carousel .zoom {
+  width:auto; min-width:108px; min-height:44px; height:44px;
+  top:auto; bottom:4px; right:8px; padding:0 14px;
+  gap:10px; border:1px solid #ffffff80; border-radius:2px;
+  background:#080b0ff0; color:#fff; font-size:11px;
+  text-transform:none; letter-spacing:.03em;
+}
+.carousel .zoom span { position:static; width:auto; height:auto; overflow:visible; clip:auto; }
+.carousel .zoom i { width:14px; height:14px; border:1.5px solid currentColor; border-radius:50%; }
+.carousel .zoom i:before { width:6px; height:1.5px; top:12px; left:10px; transform:rotate(45deg); }
+.carousel .zoom i:after { display:none; }
+.carousel .zoom:hover { color:#111; background:#f0efe9; }
+.works>.carousel { max-width:640px; }
+.works .slide { height:min(78svh,790px); min-height:0; }
+.works .slide>img,.freehand-layout .slide>img { object-fit:cover; }
+.works img[src*="a13-braco"] { object-position:64% center; }
+.works img[src*="a14-mao"] { object-position:53% center; }
+.works img[src*="a09-costas"] { object-position:50% 48%; }
+.works img[src*="braco-740"] { object-position:54% center; }
+.works img[src*="blackout-740"] { object-position:38% center; }
+.freehand-layout .carousel { max-width:470px; }
+.freehand-layout .slide { height:min(76svh,780px); min-height:0; }
+.available-stage>.split-half {
+  width:min(820px,125vw); max-width:none; height:100%;
+  opacity:.23; object-fit:contain; mix-blend-mode:multiply;
+}
+.available-stage .split-left { left:-38%!important; clip-path:inset(0 50% 0 0); }
+.available-stage .split-right { right:-38%!important; clip-path:inset(0 0 0 50%); }
+
+/* Luzes ancoradas na arte em cada enquadramento. */
+.freehand-universe { background:#090b10; pointer-events:none; }
+.freehand-universe:before,.freehand-universe:after { display:none; }
+.freehand-art {
+  position:absolute; inset:0; width:100%; height:100%; overflow:hidden;
+  mask-image:linear-gradient(#000 78%,transparent);
+}
+.freehand-art>img { width:100%; height:100%; object-fit:cover; object-position:center; }
+.freehand-art:after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg,#080a10bd,#080a1040 60%,#080a1090);
+}
+.orb-light {
+  position:absolute; width:var(--size); aspect-ratio:1;
+  left:var(--x); top:var(--y); margin-left:calc(var(--size) / -2); margin-top:calc(var(--size) / -2);
+  border-radius:50%; mix-blend-mode:screen; opacity:.45;
+  background:radial-gradient(circle,#fff9 0%,var(--glow) 18%,transparent 68%);
+  animation:orb-light-breathe 4.8s ease-in-out infinite; animation-play-state:paused;
+}
+.orb-light.magenta { --glow:#ef45ec99; animation-delay:-2.4s; }
+.orb-light.cyan { --glow:#26eadc99; }
+.orb-light.hand { animation-duration:6.2s; opacity:.3; }
+.orb-spark {
+  position:absolute; width:3px; height:3px; border-radius:50%; background:#fff;
+  left:var(--x); top:var(--y); box-shadow:0 0 7px 2px var(--glow);
+  animation:orb-spark-rise 5s ease-in-out infinite; animation-delay:var(--delay,0s); animation-play-state:paused;
+}
+.freehand.lights-active .orb-light,.freehand.lights-active .orb-spark { animation-play-state:running; }
+@keyframes orb-light-breathe { 0%,100%{opacity:.25;transform:scale(.9)} 50%{opacity:.7;transform:scale(1.12)} }
+@keyframes orb-spark-rise { 0%{opacity:0;transform:translate(0,12px)} 25%{opacity:.8} 75%{opacity:.5} 100%{opacity:0;transform:translate(5px,-24px)} }
+@media(max-width:620px) {
+  .works .slide { height:72svh; max-height:740px; }
+  .freehand-layout .slide { height:69svh; max-height:740px; }
+  .freehand-art { inset:105px 0 auto; height:calc(100vw * 1600 / 1204); mask-image:linear-gradient(transparent,#000 13%,#000 60%,transparent 95%); }
+  .freehand-art:after { background:linear-gradient(transparent 46%,#090b1090 78%,#090b10); }
+  .available-stage .split-left { left:-55%!important; }
+  .available-stage .split-right { right:-55%!important; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .orb-light { animation:none; opacity:.3; }
+  .orb-spark { display:none; }
+}
