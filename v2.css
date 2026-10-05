@@ -134,6 +134,7 @@ html.intro-active .site-intro { position:fixed; inset:0; z-index:100; display:gr
 .journey-enhanced .journey-copy .action { flex:none; }
 .journey-copy { display:flex; flex-direction:column; }
 .journey-copy .action { flex:none; }
+.artist-journey:not(.journey-enhanced) .journey-panel { align-items:stretch; }
 .zenith-v2 .workshop { display:block; background:#0b0e0d; border-top:0; }
 .zenith-v2 .workshop-copy { display:grid; grid-template-columns:1.1fr 1fr; gap:0 8vw; }
 .zenith-v2 .workshop-copy>.index { grid-column:1/-1; margin-bottom:32px; }
@@ -239,6 +240,11 @@ html.intro-active .site-intro { position:fixed; inset:0; z-index:100; display:gr
   .journey-enhanced .journey-bottom>a { font-size:9px; }
 }
 @media(max-width:620px) {
+  .artist-journey:not(.journey-enhanced) .journey-window { padding:24px 22px; }
+  .artist-journey:not(.journey-enhanced) .journey-photo { height:clamp(300px,85vw,420px); }
+  .artist-journey:not(.journey-enhanced) .journey-atelier .journey-photo>img { object-position:center 50%; }
+  .artist-journey:not(.journey-enhanced) .journey-copy h2,.artist-journey:not(.journey-enhanced) .journey-copy h3 { font-size:clamp(48px,14vw,64px); margin:16px 0; }
+  .artist-journey:not(.journey-enhanced) .journey-copy-body { flex:1; }
   .journey-enhanced .journey-window { min-height:0; padding:20px 22px; }
   .journey-enhanced .journey-photo { height:clamp(260px,40svh,350px); }
   .journey-enhanced .journey-photo>img { object-position:center 30%; }

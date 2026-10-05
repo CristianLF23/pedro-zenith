@@ -54,6 +54,7 @@
   const section=document.querySelector('.artist-journey'),track=section.querySelector('.journey-track'),windowEl=section.querySelector('.journey-window');
   const position=section.querySelector('.journey-position'),buttons=[section.querySelector('[data-journey-prev]'),section.querySelector('[data-journey-next]')];
   const shortScreen=matchMedia('(max-height: 499px)');
+  const mobileScreen=matchMedia('(max-width: 799px), (pointer: coarse) and (max-width: 1023px)');
   let enhanced=false,start=0,distance=1,maxLeft=0,frame=0,stickyStart=0,stickyEnd=0;
   const clamp=value=>Math.min(1,Math.max(0,value));
   function mark(progress){
@@ -74,7 +75,8 @@
   }
   function schedule(){if(!frame)frame=requestAnimationFrame(draw)}
   function measure(){
-    enhanced=!reduce.matches&&!shortScreen.matches;
+    const previousProgress=!enhanced&&maxLeft?clamp(track.scrollLeft/maxLeft):0;
+    enhanced=!reduce.matches&&!shortScreen.matches&&!mobileScreen.matches;
     section.classList.toggle('journey-enhanced',enhanced);
     section.style.height='';
     track.style.transform='';
@@ -93,7 +95,11 @@
       section.style.height=`${windowHeight+distance+stickyEnd-stickyStart}px`;
       start=section.getBoundingClientRect().top+scrollY-stickyTop;
       section.querySelector('.journey-hint').textContent='Continue rolando para conhecer o processo';
-    }else section.querySelector('.journey-hint').textContent='Deslize para conhecer o processo';
+    }else {
+      track.scrollLeft=maxLeft*previousProgress;
+      mark(previousProgress);
+      section.querySelector('.journey-hint').textContent='Deslize para o lado ou toque em Artista e Em sessão';
+    }
     schedule();
   }
   function go(index){
@@ -113,6 +119,7 @@
   });
   addEventListener('scroll',schedule,{passive:true});addEventListener('resize',measure);
   shortScreen.addEventListener('change',measure);reduce.addEventListener('change',measure);
+  mobileScreen.addEventListener('change',measure);
   addEventListener('load',measure);document.fonts.ready.then(measure);measure();
   const works=document.querySelector('#obras-track'),detail=document.querySelector('.work-detail-window');
   if(works&&detail){
