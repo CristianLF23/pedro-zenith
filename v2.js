@@ -54,7 +54,7 @@
   const section=document.querySelector('.artist-journey'),track=section.querySelector('.journey-track'),windowEl=section.querySelector('.journey-window');
   const position=section.querySelector('.journey-position'),buttons=[section.querySelector('[data-journey-prev]'),section.querySelector('[data-journey-next]')];
   const shortScreen=matchMedia('(max-height: 499px)');
-  let enhanced=false,start=0,distance=1,maxLeft=0,frame=0;
+  let enhanced=false,start=0,distance=1,maxLeft=0,frame=0,stickyStart=0,stickyEnd=0;
   const clamp=value=>Math.min(1,Math.max(0,value));
   function mark(progress){
     const index=progress>.5?1:0;
@@ -67,7 +67,9 @@
     studies.style.setProperty('--ornament-opacity',(reduce.matches ? .18 : entry*.18).toFixed(3));
     if(!enhanced)return;
     const progress=clamp((scrollY-start)/distance);
-    track.scrollLeft=maxLeft*progress;
+    windowEl.style.setProperty('--journey-top',`${stickyStart+(stickyEnd-stickyStart)*progress}px`);
+    track.scrollLeft=0;
+    track.style.transform=`translate3d(${-maxLeft*progress}px,0,0)`;
     mark(progress);
   }
   function schedule(){if(!frame)frame=requestAnimationFrame(draw)}
@@ -75,16 +77,20 @@
     enhanced=!reduce.matches&&!shortScreen.matches;
     section.classList.toggle('journey-enhanced',enhanced);
     section.style.height='';
+    track.style.transform='';
+    track.scrollLeft=0;
     windowEl.style.removeProperty('--journey-top');
     maxLeft=Math.max(0,track.scrollWidth-track.clientWidth);
-    distance=Math.max(innerHeight*.95,maxLeft*.86);
+    distance=innerWidth<=620?Math.max(360,Math.min(innerHeight*.7,maxLeft*1.3)):Math.max(innerHeight*.95,maxLeft*.86);
     if(enhanced){
       const windowHeight=windowEl.offsetHeight;
       const head=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--head'))||0;
       // Taller screens pin below the header; short screens read the full panel before pinning.
       const stickyTop=Math.min(head,innerHeight-windowHeight);
+      stickyStart=stickyTop;
+      stickyEnd=innerWidth<=620?head:stickyTop;
       windowEl.style.setProperty('--journey-top',`${stickyTop}px`);
-      section.style.height=`${windowHeight+distance}px`;
+      section.style.height=`${windowHeight+distance+stickyEnd-stickyStart}px`;
       start=section.getBoundingClientRect().top+scrollY-stickyTop;
       section.querySelector('.journey-hint').textContent='Continue rolando para conhecer o processo';
     }else section.querySelector('.journey-hint').textContent='Deslize para conhecer o processo';

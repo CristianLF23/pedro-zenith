@@ -97,12 +97,12 @@ html.intro-active .site-intro { position:fixed; inset:0; z-index:100; display:gr
 .zenith-v2 .freehand-process .action { box-shadow:none; background:var(--acid); margin-top:32px; }
 
 /* Capítulo horizontal ligado à rolagem; deslize nativo em movimento reduzido. */
-.zenith-v2 .artist-journey { display:block; padding:0; background:var(--paper); color:#161915; overflow:clip; }
+.zenith-v2 .artist-journey { display:block; padding:0; background:var(--paper); color:#161915; overflow:visible; }
 .journey-window { position:relative; z-index:2; padding:30px var(--pad) 28px; }
 .journey-heading { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:18px; margin-bottom:28px; }
 .journey-heading .index { color:#4c514b; }
 .journey-position { font-size:11px; font-variant-numeric:tabular-nums; }
-.journey-viewport { min-width:0; }
+.journey-viewport { min-width:0; overflow:hidden; }
 .journey-track { display:flex; gap:0; width:100%; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scrollbar-width:none; }
 .journey-track::-webkit-scrollbar { display:none; }
 .journey-panel { display:grid; grid-template-columns:1fr .9fr; align-items:center; gap:6vw; min-width:0; flex:0 0 100%; scroll-snap-align:start; padding-right:2px; }
@@ -127,7 +127,7 @@ html.intro-active .site-intro { position:fixed; inset:0; z-index:100; display:gr
 .journey-bottom>a { min-height:44px; display:flex; align-items:center; text-decoration:underline; text-underline-offset:5px; }
 .journey-enhanced .journey-window { position:sticky; top:var(--journey-top,var(--head)); height:calc(100svh - var(--head)); display:grid; grid-template-rows:auto minmax(0,1fr) auto; }
 .journey-enhanced .journey-viewport,.journey-enhanced .journey-track { height:100%; }
-.journey-enhanced .journey-track { scroll-snap-type:none; overflow-x:hidden; touch-action:pan-y; }
+.journey-enhanced .journey-track { scroll-snap-type:none; overflow:visible; touch-action:pan-y; will-change:transform; }
 .journey-enhanced .journey-photo { height:100%; }
 .journey-enhanced .journey-panel { align-items:stretch; }
 .journey-enhanced .journey-copy { display:flex; flex-direction:column; justify-content:center; }
@@ -237,6 +237,15 @@ html.intro-active .site-intro { position:fixed; inset:0; z-index:100; display:gr
   .journey-enhanced .journey-copy blockquote cite { margin-top:8px; }
   .journey-enhanced .journey-bottom { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; padding-top:10px; }
   .journey-enhanced .journey-bottom>a { font-size:9px; }
+}
+@media(max-width:620px) {
+  .journey-enhanced .journey-window { min-height:0; padding:20px 22px; }
+  .journey-enhanced .journey-photo { height:clamp(260px,40svh,350px); }
+  .journey-enhanced .journey-photo>img { object-position:center 30%; }
+  .journey-enhanced .journey-atelier .journey-photo>img { object-position:center 50%; }
+  .journey-enhanced .journey-copy h2,.journey-enhanced .journey-copy h3 { font-size:46px; margin:10px 0; }
+  .journey-enhanced .journey-copy-body>p:not(.journey-kicker) { font-size:12px; line-height:1.65; margin:10px 0; }
+  .journey-enhanced .journey-bottom { display:flex; flex-wrap:wrap; margin-top:12px; padding-top:10px; }
 }
 @media(prefers-reduced-motion:reduce) {
   html.intro-active { overflow:auto; }
