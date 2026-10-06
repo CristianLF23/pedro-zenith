@@ -51,76 +51,18 @@
     reduce.addEventListener('change',playFilm);
   }
   const studies=document.querySelector('#estudos');
-  const section=document.querySelector('.artist-journey'),track=section.querySelector('.journey-track'),windowEl=section.querySelector('.journey-window');
-  const position=section.querySelector('.journey-position'),buttons=[section.querySelector('[data-journey-prev]'),section.querySelector('[data-journey-next]')];
-  const shortScreen=matchMedia('(max-height: 499px)');
-  const mobileScreen=matchMedia('(max-width: 799px), (pointer: coarse) and (max-width: 1023px)');
-  let enhanced=false,start=0,distance=1,maxLeft=0,frame=0,stickyStart=0,stickyEnd=0;
+  let frame=0;
   const clamp=value=>Math.min(1,Math.max(0,value));
-  function mark(progress){
-    const index=progress>.5?1:0;
-    position.textContent=`0${index+1} / 02`;
-    buttons.forEach((button,i)=>{if(i===index)button.setAttribute('aria-current','true');else button.removeAttribute('aria-current')});
-  }
   function draw(){
     frame=0;
+    if(!studies)return;
     const entry=clamp((innerHeight*.9-studies.getBoundingClientRect().top)/(innerHeight*.65));
     studies.style.setProperty('--ornament-opacity',(reduce.matches ? .18 : entry*.18).toFixed(3));
-    if(!enhanced)return;
-    const progress=clamp((scrollY-start)/distance);
-    windowEl.style.setProperty('--journey-top',`${stickyStart+(stickyEnd-stickyStart)*progress}px`);
-    track.scrollLeft=0;
-    track.style.transform=`translate3d(${-maxLeft*progress}px,0,0)`;
-    mark(progress);
   }
   function schedule(){if(!frame)frame=requestAnimationFrame(draw)}
-  function measure(){
-    const previousProgress=!enhanced&&maxLeft?clamp(track.scrollLeft/maxLeft):0;
-    enhanced=!reduce.matches&&!shortScreen.matches&&!mobileScreen.matches;
-    section.classList.toggle('journey-enhanced',enhanced);
-    section.style.height='';
-    track.style.transform='';
-    track.scrollLeft=0;
-    windowEl.style.removeProperty('--journey-top');
-    maxLeft=Math.max(0,track.scrollWidth-track.clientWidth);
-    distance=innerWidth<=620?Math.max(360,Math.min(innerHeight*.7,maxLeft*1.3)):Math.max(innerHeight*.95,maxLeft*.86);
-    if(enhanced){
-      const windowHeight=windowEl.offsetHeight;
-      const head=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--head'))||0;
-      // Taller screens pin below the header; short screens read the full panel before pinning.
-      const stickyTop=Math.min(head,innerHeight-windowHeight);
-      stickyStart=stickyTop;
-      stickyEnd=innerWidth<=620?head:stickyTop;
-      windowEl.style.setProperty('--journey-top',`${stickyTop}px`);
-      section.style.height=`${windowHeight+distance+stickyEnd-stickyStart}px`;
-      start=section.getBoundingClientRect().top+scrollY-stickyTop;
-      section.querySelector('.journey-hint').textContent='Continue rolando para conhecer o processo';
-    }else {
-      track.scrollLeft=maxLeft*previousProgress;
-      mark(previousProgress);
-      section.querySelector('.journey-hint').textContent='Deslize para o lado ou toque em Artista e Em sessão';
-    }
-    schedule();
-  }
-  function go(index){
-    if(enhanced)scrollTo({top:start+distance*index,behavior:reduce.matches?'instant':'smooth'});
-    else track.scrollTo({left:maxLeft*index,behavior:reduce.matches?'instant':'smooth'});
-  }
-  buttons.forEach((button,index)=>button.addEventListener('click',()=>go(index)));
-  track.addEventListener('keydown',event=>{
-    if(event.target!==track)return;
-    if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();go(event.key==='ArrowRight'?1:0)}
-  });
-  track.addEventListener('scroll',()=>{if(!enhanced)mark(maxLeft?track.scrollLeft/maxLeft:0)},{passive:true});
-  track.addEventListener('focusin',event=>{
-    if(!enhanced)return;
-    const panel=event.target.closest('.journey-panel');
-    if(panel){const index=[...track.children].indexOf(panel);scrollTo({top:start+distance*index,behavior:'instant'})}
-  });
-  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',measure);
-  shortScreen.addEventListener('change',measure);reduce.addEventListener('change',measure);
-  mobileScreen.addEventListener('change',measure);
-  addEventListener('load',measure);document.fonts.ready.then(measure);measure();
+  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);
+  reduce.addEventListener('change',schedule);
+  addEventListener('load',schedule);document.fonts.ready.then(schedule);schedule();
   const works=document.querySelector('#obras-track'),detail=document.querySelector('.work-detail-window');
   if(works&&detail){
     const slides=[...works.children],photo=detail.querySelector('img'),zoom=detail.querySelector('.zoom');

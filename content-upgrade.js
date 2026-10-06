@@ -3,7 +3,7 @@
   const rail=document.querySelector('[data-techniques]');
   if(rail){
     const track=rail.querySelector('.technique-track'),cards=[...track.children],count=rail.querySelector('.technique-count'),play=rail.querySelector('[data-tech-play]');
-    let index=0,paused=reduce.matches,visible=false,timer=0,raf=0,drag=null;
+    let index=0,paused=true,visible=false,timer=0,raf=0,drag=null;
     const max=()=>Math.max(0,track.scrollWidth-track.clientWidth);
     const leftFor=i=>Math.min(max(),cards[i].offsetLeft-cards[0].offsetLeft);
     function sync(){
