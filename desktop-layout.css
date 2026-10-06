@@ -1,0 +1,81 @@
+/* V24: composed desktop sections. Existing mobile styles remain authoritative. */
+@media (min-width:1001px) {
+  .zenith-v2 { --desktop-gutter:max(48px,calc((100vw - 1280px)/2)); }
+  .zenith-v2 .works,
+  .zenith-v2 .techniques,
+  .zenith-v2 .creation-process,
+  .zenith-v2 .split-study,
+  .zenith-v2 .artist.artist-profile { padding:64px var(--desktop-gutter); }
+  .zenith-v2 .works { grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:48px; align-items:center; }
+  .zenith-v2 .works .chapter-head h2 { font-size:96px; margin:0 0 22px; }
+  .zenith-v2 .works .intro { max-width:360px; font-size:14px; line-height:1.8; }
+  .zenith-v2 .works .work-detail-window { display:none; }
+  .zenith-v2 .works .hero-film { width:260px; margin:28px 0 0; aspect-ratio:9/16; }
+  .zenith-v2 .works>.carousel { width:100%; max-width:620px; }
+  .zenith-v2 .works .slide { height:clamp(460px,63svh,620px); min-height:0; }
+
+  .technique-heading { grid-template-columns:1.2fr 1fr; gap:40px; margin-bottom:32px; }
+  .technique-heading h2 { font-size:84px; max-width:720px; }
+  .technique-heading>p:last-child { font-size:14px; max-width:390px; justify-self:end; }
+  .technique-track { gap:20px; }
+  .technique-card { flex-basis:calc((100% - 40px)/3); }
+  .technique-photo { height:clamp(260px,24vw,350px); max-height:none; aspect-ratio:auto; }
+  .technique-copy { min-height:0; padding:22px; }
+  .technique-copy h3 { font-size:42px; margin:0 0 12px; }
+  .technique-copy>p:not(.technique-kicker) { font-size:13px; line-height:1.75; }
+  .technique-process-link { margin-top:12px; }
+  .technique-cta { margin-top:24px; }
+
+  .zenith-v2 .creation-process { grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr); gap:24px 56px; }
+  .zenith-v2 .creation-process h2 { font-size:76px; margin-bottom:20px; }
+  .process-intro>p:not(.index) { font-size:14px; }
+  .process-steps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px 28px; align-self:start; }
+  .process-steps li { gap:14px; padding:20px 0 10px; }
+  .process-steps h3 { font-size:36px; }
+  .process-steps p { font-size:13px; line-height:1.75; }
+  .process-actions { align-self:start; }
+
+  .zenith-v2 .split-study { display:grid; min-height:0; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px 64px; align-content:center; }
+  .zenith-v2 .study-copy { display:block; grid-column:1; grid-row:1; align-self:center; }
+  .zenith-v2 .study-copy h2 { font-size:104px; margin:0 0 24px; }
+  .zenith-v2 .study-copy>p { font-size:14px; line-height:1.8; max-width:380px; }
+  .zenith-v2 .project-options { grid-column:1; grid-row:2; margin:0; align-self:start; }
+  .zenith-v2 .available-stage { display:block; grid-column:2; grid-row:1; margin:0; width:100%; }
+  .zenith-v2 .available-stage>.plate-note { display:none; }
+  .zenith-v2 .available-stage>.carousel { width:min(100%,350px); max-width:none; margin:0 auto; position:relative; z-index:2; }
+  .zenith-v2 .art-inquiry { grid-column:1; grid-row:3; width:100%; max-width:420px; margin:0; align-self:start; }
+  .zenith-v2 .split-study>.split-half { width:min(420px,34vw); }
+  .zenith-v2 .art-inquiry>p { font-size:13px; }
+  .zenith-v2 .study-copy>.project-options { margin:24px 0 0; }
+  .zenith-v2 .study-copy>.art-inquiry { margin:24px 0 0; }
+
+  .artist-profile-layout { max-width:none; grid-template-columns:minmax(0,.85fr) minmax(0,1.2fr) minmax(0,.9fr); gap:36px; align-items:center; }
+  .artist-profile-layout .artist-portrait { grid-column:1; grid-row:1; }
+  .artist-profile-copy { grid-column:2; grid-row:1; }
+  .artist-profile-copy h2 { font-size:76px; margin-bottom:20px; }
+  .artist-profile-copy>p { font-size:14px; line-height:1.75; margin-bottom:14px; }
+  .artist-profile-copy blockquote { font-size:27px; margin:20px 0 8px; }
+  .artist-profile-layout .artist-session { grid-column:3; grid-row:1; aspect-ratio:1284/1518; }
+  .artist-profile-layout .artist-session>img { object-position:center; }
+  .artist-profile-layout figure figcaption { display:block; font-size:10px; }
+  .artist-profile-layout figure figcaption span { display:block; }
+
+  .zenith-v2 .workshop.workshop-compact { padding-inline:var(--desktop-gutter); }
+  .zenith-v2 .contact { min-height:0; padding:76px var(--desktop-gutter); }
+  .zenith-v2 .contact-copy { width:100%; max-width:none; display:grid; grid-template-columns:1.2fr 1fr; gap:20px 64px; align-items:center; text-align:left; }
+  .zenith-v2 .contact-copy h2 { grid-column:1; grid-row:1/span 3; font-size:104px; margin:0; max-width:620px; }
+  .zenith-v2 .contact-copy>p { grid-column:2; margin:0; max-width:420px; font-size:14px; }
+  .zenith-v2 .contact-copy>.action { grid-column:2; width:100%; max-width:420px; margin:0; }
+  .zenith-v2 .contact-copy>.phone { grid-column:2; margin:0; }
+}
+@media (min-width:1001px) and (max-width:1199px) {
+  .zenith-v2 { --desktop-gutter:40px; }
+  .zenith-v2 .works,.artist-profile-layout { gap:28px; }
+  .technique-heading h2 { font-size:72px; }
+  .technique-copy { padding:18px; }
+  .zenith-v2 .creation-process { gap:24px 32px; }
+  .process-steps { gap:16px; }
+  .process-steps h3 { font-size:32px; }
+  .zenith-v2 .study-copy h2 { font-size:88px; }
+  .artist-profile-copy h2 { font-size:64px; }
+}
